@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# To enable zsh, please set ENABLE_ZSH env var to "true" before launching vagrant up 
+#   + On windows => $env:ENABLE_ZSH="true"
+#   + On Linux  => export ENABLE_ZSH="true"
+Vagrant.configure("2") do |config|
+  config.vm.define "eazytuto" do |eazytuto|
+    eazytuto.vm.box = "ulrichnoumsi98/docker"
+    eazytuto.vm.box_version = "1.0"
+    eazytuto.vm.network "private_network", type: "dhcp"
+    eazytuto.vm.hostname = "eazytuto"
+    eazytuto.vm.provider "virtualbox" do |v|
+      v.name = "eazytuto"
+      v.memory = 1024
+      v.cpus = 2
+    end
+    eazytuto.vm.provision :shell do |shell|
+      shell.path = "install_eazytuto.sh"
+    end
+  end
+end
